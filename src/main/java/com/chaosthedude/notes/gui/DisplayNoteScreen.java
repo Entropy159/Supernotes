@@ -3,7 +3,7 @@ package com.chaosthedude.notes.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.config.NotesConfig;
 import com.chaosthedude.notes.note.Note;
 import com.chaosthedude.notes.util.RenderUtils;
@@ -120,16 +120,17 @@ public class DisplayNoteScreen extends Screen {
 	}
 
 	private boolean isPinned() {
-		return note.equals(Notes.pinnedNote);
+		return note.equals(Supernotes.pinnedNote);
 	}
 
 	private void togglePin() {
 		if (isPinned()) {
-			Notes.pinnedNote = null;
+			Supernotes.pinnedNote = null;
 			pinButton.setMessage(Text.translatable("notes.pin"));
 		} else {
-			Notes.pinnedNote = note;
+			Supernotes.pinnedNote = note;
 			pinButton.setMessage(Text.translatable("notes.unpin"));
+            Supernotes.pinnedNote.update();
 		}
 	}
 

@@ -31,10 +31,10 @@
     "notes.scope.remote": "Remote",
 
     "_comment": "CATEGORIES",
-    "key.category.notes.keys": "Notes",
+    "key.category.supernotes.keys": "Supernotes",
 
     "_comment": "KEYBINDS",
-    "key.openNotes": "Open Notes",
+    "key.openNotes": "Open Supernotes",
 
     "_comment": "STRINGS",
     "notes.confirmDelete": "Delete this note?",

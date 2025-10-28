@@ -1,6 +1,6 @@
 package com.chaosthedude.notes.gui;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.note.Note;
 import com.chaosthedude.notes.note.Scope;
 import com.chaosthedude.notes.util.StringUtils;
@@ -27,7 +27,6 @@ public class EditNoteScreen extends Screen {
 	private NotesButton cancelButton;
 	private NotesTitleField noteTitleField;
 	private NotesTextField noteTextField;
-	private String saveDirName;
 	private Note note;
 	private Scope scope;
 	private boolean pinned;
@@ -98,7 +97,7 @@ public class EditNoteScreen extends Screen {
 			note.save();
 			client.setScreen(new DisplayNoteScreen(parentScreen, note));
 			if (pinned) {
-				Notes.pinnedNote = note;
+				Supernotes.pinnedNote = note;
 			}
 		}));
 		globalButton = addDrawableChild(new NotesButton(10, 65, 110, 20, Text.translatable("notes.global").append(Text.literal(": ").append(note.getScope() == Scope.GLOBAL ? Text.translatable("notes.on") : Text.translatable("notes.off"))), (onPress) -> {

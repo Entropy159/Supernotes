@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.config.NotesConfig;
 import com.chaosthedude.notes.util.RenderUtils;
 
@@ -33,13 +33,13 @@ public class HUDMixin {
 	@Inject(method = "render(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At(value = "TAIL"))
 	private void renderPinnedNote(DrawContext context, RenderTickCounter tickCounter, CallbackInfo info) {
 		if (!client.options.hudHidden && (client.currentScreen == null || client.currentScreen instanceof ChatScreen)) {
-			if (Notes.pinnedNote != null && Notes.pinnedNote.isValidScope()) {
-				Notes.pinnedNote.update();
+			if (Supernotes.pinnedNote != null && Supernotes.pinnedNote.isValidScope()) {
+//				Supernotes.pinnedNote.update();
 				
 				final int maxWidth = MathHelper.floor(client.getWindow().getScaledWidth() * NotesConfig.pinnedWidthScale);
 				final int maxHeight = MathHelper.floor(client.getWindow().getScaledHeight() * NotesConfig.pinnedHeightScale);
 	
-				final String text = Notes.pinnedNote.getFilteredText();
+				final String text = Supernotes.pinnedNote.getFilteredText();
 				final List<String> widthSplitLines = RenderUtils.splitStringToWidth(text, maxWidth);
 				final List<String> lines = RenderUtils.splitStringToHeight(widthSplitLines, maxHeight);
 

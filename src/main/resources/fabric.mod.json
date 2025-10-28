@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "notes",
+  "id": "supernotes",
   "version": "${version}",
 
-  "name": "Notes",
+  "name": "Supernotes",
   "description": "Clientside in-game notepad.",
   "authors": [
-    "ChaosTheDude"
+    "ChaosTheDude, Entropy159"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/notes",
@@ -18,11 +18,11 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.chaosthedude.notes.Notes"
+      "com.chaosthedude.notes.Supernotes"
     ]
   },
   "mixins": [
-    "notes.mixins.json"
+    "supernotes.mixins.json"
   ],
 
   "depends": {

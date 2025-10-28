@@ -26,6 +26,11 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    include ("com.konghq:unirest-java-core:4.5.1")
+    include ("com.konghq:unirest-modules-gson:4.5.1")
+    implementation ("com.konghq:unirest-java-core:4.5.1")
+    implementation ("com.konghq:unirest-modules-gson:4.5.1")
 	
 }
 

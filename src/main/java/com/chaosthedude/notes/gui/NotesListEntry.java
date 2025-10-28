@@ -1,6 +1,6 @@
 package com.chaosthedude.notes.gui;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.config.NotesConfig;
 import com.chaosthedude.notes.note.Note;
 
@@ -14,7 +14,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
@@ -54,9 +53,7 @@ public class NotesListEntry extends AlwaysSelectedEntryListWidget.Entry<NotesLis
 	}
 
 	public void editNote() {
-		if (NotesConfig.useInGameEditor || !note.tryOpenExternal()) {
-			client.setScreen(new EditNoteScreen(parentScreen, note));
-		}
+        client.setScreen(new EditNoteScreen(parentScreen, note));
 	}
 
 	public void copyNote() {
@@ -66,22 +63,21 @@ public class NotesListEntry extends AlwaysSelectedEntryListWidget.Entry<NotesLis
 
 	public void loadNote() {
 		client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-		if (NotesConfig.useInGameViewer || !note.tryOpenExternal()) {
-			client.setScreen(new DisplayNoteScreen(parentScreen, note));
-		}
+		client.setScreen(new DisplayNoteScreen(parentScreen, note));
 	}
 
 	public void togglePin() {
 		if (isPinned()) {
-			Notes.pinnedNote = null;
+			Supernotes.pinnedNote = null;
 		} else {
-			Notes.pinnedNote = note;
+			Supernotes.pinnedNote = note;
 			client.setScreen(null);
+            Supernotes.pinnedNote.update();
 		}
 	}
 
 	public boolean isPinned() {
-		return note.equals(Notes.pinnedNote);
+		return note.equals(Supernotes.pinnedNote);
 	}
 	
 	public Note getNote() {

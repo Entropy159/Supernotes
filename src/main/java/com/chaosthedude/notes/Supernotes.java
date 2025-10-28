@@ -1,5 +1,7 @@
 package com.chaosthedude.notes;
 
+import kong.unirest.core.Unirest;
+import kong.unirest.modules.gson.GsonObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -14,9 +16,9 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.util.Identifier;
 
-public class Notes implements ClientModInitializer {
+public class Supernotes implements ClientModInitializer {
 
-	public static final String MODID = "notes";
+	public static final String MODID = "supernotes";
 
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
@@ -24,8 +26,11 @@ public class Notes implements ClientModInitializer {
 
 	private static KeyBinding openNotes;
 
+    public static final String baseUrl = "https://api.supernotes.app/v1/";
+
 	@Override
 	public void onInitializeClient() {
+        Unirest.config().setObjectMapper(new GsonObjectMapper());
 		NotesConfig.load();
 		
 		openNotes = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.openNotes", GLFW.GLFW_KEY_N, new KeyBinding.Category(Identifier.of(MODID, "keys"))));
