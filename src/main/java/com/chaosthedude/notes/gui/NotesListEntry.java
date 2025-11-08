@@ -3,7 +3,7 @@ package com.chaosthedude.notes.gui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.config.ConfigHandler;
 import com.chaosthedude.notes.note.Note;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -65,9 +65,7 @@ public class NotesListEntry extends ObjectSelectionList.Entry<NotesListEntry> {
 	}
 
 	public void editNote() {
-		if (ConfigHandler.CLIENT.useInGameEditor.get() || !note.tryOpenExternal()) {
-			mc.setScreen(new EditNoteScreen(parentScreen, note));
-		}
+        mc.setScreen(new EditNoteScreen(parentScreen, note));
 	}
 
 	public void copyNote() {
@@ -77,22 +75,21 @@ public class NotesListEntry extends ObjectSelectionList.Entry<NotesListEntry> {
 
 	public void loadNote() {
 		mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-		if (ConfigHandler.CLIENT.useInGameViewer.get() || !note.tryOpenExternal()) {
-			mc.setScreen(new DisplayNoteScreen(parentScreen, note));
-		}
+        mc.setScreen(new DisplayNoteScreen(parentScreen, note));
 	}
 
 	public void togglePin() {
 		if (isPinned()) {
-			Notes.pinnedNote = null;
+			Supernotes.pinnedNote = null;
 		} else {
-			Notes.pinnedNote = note;
+			Supernotes.pinnedNote = note;
 			mc.setScreen(null);
+            Supernotes.pinnedNote.update();
 		}
 	}
 
 	public boolean isPinned() {
-		return note.equals(Notes.pinnedNote);
+		return note.equals(Supernotes.pinnedNote);
 	}
 	
 	public Note getNote() {

@@ -12,12 +12,11 @@ public class ConfigHandler {
 	
 	public static class Client {
 		public final ForgeConfigSpec.ConfigValue<String> dateFormat;
-		public final ForgeConfigSpec.BooleanValue useInGameEditor;
-		public final ForgeConfigSpec.BooleanValue useInGameViewer;
 		public final ForgeConfigSpec.ConfigValue<String> pinnedNotePosition;
 		public final ForgeConfigSpec.DoubleValue pinnedWidthScale;
 		public final ForgeConfigSpec.DoubleValue pinnedHeightScale;
 		public final ForgeConfigSpec.BooleanValue wrapNote;
+        public final ForgeConfigSpec.ConfigValue<String> apiKey;
 		
 		Client(ForgeConfigSpec.Builder builder) {
 			String desc;
@@ -25,12 +24,6 @@ public class ConfigHandler {
 			
 			desc = "The date format used in timestamps. Uses Java SimpleDateFormat conventions.";
 			dateFormat = builder.comment(desc).define("dateFormat", "M/d/yy h:mm a");
-	
-			desc = "Determines whether the in-game editor or the system's default text editor will be used to edit notes. If the system editor is not available, the in-game editor will be used.";
-			useInGameEditor = builder.comment(desc).define("useInGameEditor", true);
-	
-			desc = "Determines whether the in-game viewer or the system's default text viewer will be used to view notes. If the system viewer is not available, the in-game viewer will be used.";
-			useInGameViewer = builder.comment(desc).define("useInGameViewer", true);
 	
 			desc = "The HUD position of a pinned note. Values: top_left, top_right, center_left, center_right, bottom_left, bottom_right";
 			pinnedNotePosition = builder.comment(desc).define("pinnedNotePosition", "center_right");
@@ -43,6 +36,9 @@ public class ConfigHandler {
 	
 			desc = "Determines whether displayed notes will be word wrapped.";
 			wrapNote = builder.comment(desc).define("wrapNote", true);
+
+            desc = "API Key for Supernotes";
+            apiKey = builder.comment(desc).define("apiKey", "API_KEY_HERE");
 			
 			builder.pop();
 		}

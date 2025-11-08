@@ -2,7 +2,7 @@ package com.chaosthedude.notes.gui;
 
 import javax.annotation.Nullable;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.note.Note;
 import com.chaosthedude.notes.note.Scope;
 import com.chaosthedude.notes.util.StringUtils;
@@ -109,7 +109,7 @@ public class EditNoteScreen extends Screen {
 			note.save();
 			minecraft.setScreen(new DisplayNoteScreen(parentScreen, note));
 			if (pinned) {
-				Notes.pinnedNote = note;
+				Supernotes.pinnedNote = note;
 			}
 		}));
 		globalButton = addRenderableWidget(new NotesButton(10, 65, 110, 20, Component.translatable("notes.global").append(Component.literal(": ").append(note.getScope() == Scope.GLOBAL ? Component.translatable("notes.on") : Component.translatable("notes.off"))), (onPress) -> {

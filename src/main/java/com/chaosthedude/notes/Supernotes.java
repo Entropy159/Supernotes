@@ -1,5 +1,7 @@
 package com.chaosthedude.notes;
 
+import kong.unirest.core.Unirest;
+import kong.unirest.modules.gson.GsonObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,16 +17,20 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
-@Mod(Notes.MODID)
-public class Notes {
+@Mod(Supernotes.MODID)
+public class Supernotes {
 
-	public static final String MODID = "notes";
+	public static final String MODID = "supernotes";
 
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 	public static Note pinnedNote;
+
+    public static final String baseUrl = "https://api.supernotes.app/v1/";
 	
-	public Notes() {
+	public Supernotes() {
+        Unirest.config().setObjectMapper(new GsonObjectMapper());
+
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () ->  () -> {
 			MinecraftForge.EVENT_BUS.register(new TickHandler());
 			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);

@@ -2,7 +2,7 @@ package com.chaosthedude.notes.event;
 
 import java.util.List;
 
-import com.chaosthedude.notes.Notes;
+import com.chaosthedude.notes.Supernotes;
 import com.chaosthedude.notes.config.ConfigHandler;
 import com.chaosthedude.notes.gui.SelectNoteScreen;
 import com.chaosthedude.notes.util.RenderUtils;
@@ -16,7 +16,7 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Notes.MODID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Supernotes.MODID, value = Dist.CLIENT)
 public class TickHandler {
 
 	private static final Minecraft CLIENT = Minecraft.getInstance();
@@ -31,13 +31,13 @@ public class TickHandler {
 	@SubscribeEvent
 	public void onRenderTick(RenderGuiEvent.Post event) {
 		if (!CLIENT.options.hideGui && (CLIENT.screen == null || CLIENT.screen instanceof ChatScreen)) {
-			if (Notes.pinnedNote != null && Notes.pinnedNote.isValidScope()) {
-				Notes.pinnedNote.update();
+			if (Supernotes.pinnedNote != null && Supernotes.pinnedNote.isValidScope()) {
+//				Supernotes.pinnedNote.update();
 
 				final int maxWidth = Mth.floor(CLIENT.getWindow().getGuiScaledWidth() * ConfigHandler.CLIENT.pinnedWidthScale.get());
 				final int maxHeight = Mth.floor(CLIENT.getWindow().getGuiScaledHeight() * ConfigHandler.CLIENT.pinnedHeightScale.get());
 				
-				final String text = Notes.pinnedNote.getFilteredText();
+				final String text = Supernotes.pinnedNote.getFilteredText();
 				final List<String> widthSplitLines = RenderUtils.splitStringToWidth(text, maxWidth);
 				final List<String> lines = RenderUtils.splitStringToHeight(widthSplitLines, maxHeight);
 				
