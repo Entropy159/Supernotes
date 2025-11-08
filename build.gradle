@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = mod_version
@@ -162,8 +163,8 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    minecraftLibrary ("com.konghq:unirest-java-core:4.5.1")
-    minecraftLibrary ("com.konghq:unirest-modules-gson:4.5.1")
+    implementation ("com.konghq:unirest-java-core:4.5.1")
+    implementation ("com.konghq:unirest-modules-gson:4.5.1")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -179,6 +180,18 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
+
+shadowJar {
+    relocate 'kong.unirest', "${mod_id}.libs.unirest"
+
+    dependencies {
+        include(dependency('com.konghq:.*'))
+    }
+}
+
+reobf {
+    shadowJar {}
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -215,11 +228,15 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+
+    dependsOn tasks.shadowJar
+    from tasks.shadowJar.archiveFile
+
+    finalizedBy 'reobfJar'
 }
 
 // Example configuration to allow publishing using the maven-publish plugin
 // This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 // publish.dependsOn('reobfJar')
 
