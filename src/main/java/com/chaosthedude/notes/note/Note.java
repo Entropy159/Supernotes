@@ -371,12 +371,7 @@ public class Note {
             }
         }
 
-		Collections.sort(notes, Collections.reverseOrder(new Comparator<Note>() {
-			@Override
-			public int compare(Note n1, Note n2) {
-				return Long.compare(n1.getLastModified(), n2.getLastModified());
-			}
-		}));
+		Collections.sort(notes, Collections.reverseOrder((n1, n2) -> Long.compare(n1.getLastModified(), n2.getLastModified())));
 
 		return notes;
 	}
